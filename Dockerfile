@@ -19,7 +19,7 @@ RUN ls -l /opt
 WORKDIR /app
 
 # Copy the project files into the container
-COPY ../pom.xml /app/
+COPY pom.xml /app/
 COPY src /app/src
 
 # Build the application (with dependencies bundled into the JAR)
