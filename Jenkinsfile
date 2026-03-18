@@ -1,27 +1,34 @@
 pipeline {
     agent any
+
+    tools {
+        maven 'Maven'
+    }
+
     environment {
         DOCKERHUB_CREDENTIALS_ID = 'Docker_Hub'
         DOCKERHUB_REPO = 'roshinif/sep2_week2_2025_bmidemo'
         DOCKER_IMAGE_TAG = 'latest'
     }
+
     stages {
         stage('Checkout') {
             steps {
                 git branch: 'main', url: 'https://github.com/Malimige/lectdemo_3011.git'
             }
         }
+
         stage('Build') {
             steps {
                 bat 'mvn clean install'
             }
         }
+
         stage('Test') {
             steps {
                 bat 'mvn test'
             }
         }
-
 
         stage('Build Docker Image') {
             steps {
@@ -30,6 +37,7 @@ pipeline {
                 }
             }
         }
+
         stage('Push Docker Image to Docker Hub') {
             steps {
                 script {
